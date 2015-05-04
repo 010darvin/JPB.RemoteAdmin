@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="JPB.RemoteAdmin.Client.WpfUi.View.MessageDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mainWindow="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.ViewModel.MainWindow"
+             xmlns:viewModel="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance mainWindow:MessageDialogViewModel}">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Run Selected on Client" Command="{Binding RunSelectedContractOnClientCommand}" />
+        </Menu>
+        <Label DockPanel.Dock="Top" Content="This infos will NOT be stored on this maschine"/>
+        
+        <DockPanel>
+            <ComboBox DockPanel.Dock="Top" 
+                      ItemsSource="{Binding MessageContractsBase}" 
+                      SelectedItem="{Binding SelectedContractBase}"
+                      DisplayMemberPath="MessageBoxContractBase.Id"/>
+            
+            <DockPanel Dock="Left">
+                <DataGrid SelectionMode="Single" CanUserAddRows="False" ItemsSource="{Binding SelectedContractBase.Params}" AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Binding="{Binding Name}"/>
+                        <DataGridTemplateColumn IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentControl d:DataContext="{d:DesignInstance mainWindow:MessageBoxContractViewModel}">
+                                        <ContentControl.Style>
+                                            <Style TargetType="ContentControl">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Params, Converter={StaticResource IsAnyToBooleanConverter}}" Value="true">
+                                                        <Setter Property="Content">
+                                                            <Setter.Value>
+                                                                <ComboBox 
+                                                                        ItemsSource="{Binding Params, UpdateSourceTrigger=PropertyChanged}" 
+                                                                        SelectedValue="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding Params, Converter={StaticResource IsAnyToBooleanConverter}}" Value="false">
+                                                        <Setter Property="Content">
+                                                            <Setter.Value>
+                                                                <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ContentControl.Style>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            
+            <TextBox Text="{Binding ReceivedResult}">
+                
+            </TextBox>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

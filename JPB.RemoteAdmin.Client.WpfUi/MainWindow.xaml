@@ -1,0 +1,84 @@
+﻿<Window x:Class="JPB.RemoteAdmin.Client.WpfUi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.View"
+        xmlns:mainWindow="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.ViewModel.MainWindow"
+        mc:Ignorable="d"
+        WindowStyle="ToolWindow"
+        Title="Remote Admin" 
+        Height="350" 
+        Width="525" 
+        d:DataContext="{d:DesignInstance mainWindow:MainWindowViewModel}">
+    <Window.Resources>
+        <DataTemplate x:Key="mwvm" DataType="mainWindow:SingelClientViewModel">
+            <TabControl>
+                <TabItem Header="File System">
+                    <view:FileSystemView DataContext="{Binding FileSystemViewModel}" />
+                </TabItem>
+
+                <TabItem Header="Dyn Code">
+                    <view:DynCodeExecuterView DataContext="{Binding DynCodeExecuterViewModel}"/>
+                </TabItem>
+
+                <TabItem Header="Screen Capture">
+                    <view:ScreenCaptureView DataContext="{Binding ScreenCaptureViewModel}"/>
+                </TabItem>
+
+                <TabItem Header="System Functions">
+                    <view:SystemStateView DataContext="{Binding SystemStateViewModel}"/>
+                </TabItem>
+
+                <TabItem Header="KeyImports">
+                    <view:KeyExplorer DataContext="{Binding KeyExplorereViewModel}"/>
+                </TabItem>
+
+                <TabItem Header="Process Explorer">
+                    <view:TaskExplorerView DataContext="{Binding TaskExplorerViewModel}"/>
+                </TabItem>
+
+                <TabItem Header="Message Invoker">
+                    <view:MessageDialogView DataContext="{Binding MessageDialogViewModel}"/>
+                </TabItem>
+            </TabControl>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel Grid.IsSharedSizeScope="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Debug" Command="{Binding OpenDebugWindowCommand}"/>
+            <MenuItem Header="Start Local Server" Command="{Binding StartDebugServerCommand}"/>
+        </Menu>
+        <TabControl DockPanel.Dock="Top" 
+                    ContentTemplate="{StaticResource mwvm}" 
+                    ItemsSource="{Binding Clients}" 
+                    SelectedItem="{Binding SelectedClient}"
+                    TabStripPlacement="Left">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <DockPanel.Style>
+                            <Style TargetType="DockPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ClientInstance.HostAddress.Socket.Connected, Mode=OneWay}" Value="true">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ClientInstance.HostAddress.Socket.Connected, Mode=OneWay}" Value="false">
+                                        <Setter Property="Background" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DockPanel.Style>
+                        <DockPanel>
+                            <Label Content="{Binding TargetIP}"/>
+                            <Label Content=":"/>
+                            <Label Content="{Binding ClientInstance.HostAddress.TCPNetworkSender.Port}"/>
+                        </DockPanel>
+                        <!--<TextBox Text="{Binding Holder.Name}"/>
+                        <CheckBox IsEnabled="False" IsChecked="{Binding ClientInstance.HostAddress.Socket.Connected, Mode=OneWay}"></CheckBox>-->
+                    </DockPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+    </DockPanel>
+</Window>

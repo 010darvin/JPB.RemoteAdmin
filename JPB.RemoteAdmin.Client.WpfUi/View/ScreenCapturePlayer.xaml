@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="JPB.RemoteAdmin.Client.WpfUi.View.ScreenCapturePlayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mainWindow="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.ViewModel.MainWindow"
+             xmlns:view="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.View"
+             mc:Ignorable="d" 
+             KeyDown="ImageSource_KeyDown"
+             d:DataContext="{d:DesignInstance mainWindow:ScreenCaptureViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+            <Image 
+            Stretch="Fill"
+            Name="ImageSource"
+            MouseDown="ImageSource_MouseDown"   
+            MouseUp="ImageSource_OnMouseUp"
+            MouseWheel="ImageSource_OnMouseWheel"            
+            Source="{Binding ImageSource}"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

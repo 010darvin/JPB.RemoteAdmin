@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1E4FC886-708B-416C-A40E-BA2426CE94E8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JPB.RemoteAdmin.Client.WpfUi</RootNamespace>
+    <AssemblyName>JPB.RemoteAdmin.Client.WpfUi</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ExternalTest|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ExternalTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ExternalTest</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge.Video.FFMPEG, Version=2.2.5.0, Culture=neutral, PublicKeyToken=03563089b1be05dd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\AForge.Video.FFMPEG.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CollectionAnyConverter.cs" />
+    <Compile Include="ViewModel\KeyExplorerProcessViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\KeyExplorerViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\MessageDialogViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\ProcessExplorerViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\ScreenCaptureOptionPartViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\ScreenCaptureOptionsViewModel.cs" />
+    <Compile Include="ViewModel\MessageBoxParameterViewModel.cs" />
+    <Compile Include="ViewModel\ResolveIpWindow\ResolveIpWindowViewModel.cs" />
+    <Compile Include="View\Converter\HeaderConverter.cs" />
+    <Compile Include="View\Converter\IsImageConverter.cs" />
+    <Compile Include="View\Converter\IsNullConverter.cs" />
+    <Compile Include="View\Converter\LongToHDDSizeConverter.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Converter\PathToDataNameConverter.cs" />
+    <Compile Include="View\Converter\PathToIconOrDefaultConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ViewModel\FileInfoViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\DynCodeExecuterViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\FileSystemViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\ScreenCaptureViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\SingelClientViewModel.cs" />
+    <Compile Include="ViewModel\MainWindow\SystemStateViewModel.cs" />
+    <Compile Include="ViewModel\TreeViewHelper.cs" />
+    <Compile Include="View\DynCodeExecuterView.xaml.cs">
+      <DependentUpon>DynCodeExecuterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FileSystemView.xaml.cs">
+      <DependentUpon>FileSystemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FsExplore\FsTreeView.xaml.cs">
+      <DependentUpon>FsTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FsExplore\GridControlExplorer.xaml.cs">
+      <DependentUpon>GridControlExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FsExplore\WindowsExplorerLike.xaml.cs">
+      <DependentUpon>WindowsExplorerLike.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeyExplorer.xaml.cs">
+      <DependentUpon>KeyExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageDialogView.xaml.cs">
+      <DependentUpon>MessageDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScreenCaptureOptionsView.xaml.cs">
+      <DependentUpon>ScreenCaptureOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScreenCapturePlayer.xaml.cs">
+      <DependentUpon>ScreenCapturePlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScreenCaptureView.xaml.cs">
+      <DependentUpon>ScreenCaptureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemStateView.xaml.cs">
+      <DependentUpon>SystemStateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TaskExplorerView.xaml.cs">
+      <DependentUpon>TaskExplorerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WebBrowserUtility.cs" />
+    <Compile Include="Windows\ResolveIpWindow.xaml.cs">
+      <DependentUpon>ResolveIpWindow.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DynCodeExecuterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FileSystemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FsExplore\FsTreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FsExplore\GridControlExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FsExplore\WindowsExplorerLike.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\KeyExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScreenCaptureOptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScreenCapturePlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScreenCaptureView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SystemStateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TaskExplorerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ResolveIpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AForge.dll" />
+    <Content Include="Resources\AForge.Video.DirectShow.dll" />
+    <Content Include="Resources\AForge.Video.dll" />
+    <Content Include="Resources\AForge.Video.FFMPEG.dll" />
+    <Content Include="Resources\RootResouces\avcodec-53.dll" />
+    <Content Include="Resources\RootResouces\avdevice-53.dll" />
+    <Content Include="Resources\RootResouces\avfilter-2.dll" />
+    <Content Include="Resources\RootResouces\avformat-53.dll" />
+    <Content Include="Resources\RootResouces\avutil-51.dll" />
+    <Content Include="Resources\RootResouces\postproc-52.dll" />
+    <Content Include="Resources\RootResouces\swresample-0.dll" />
+    <Content Include="Resources\RootResouces\swscale-2.dll" />
+    <Resource Include="Resources\Images\1421025482_Folder.png" />
+    <Resource Include="Resources\Images\1421025570_file-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JPB.RemoteAdmin.Client.Native\JPB.RemoteAdmin.Client.Native.csproj">
+      <Project>{136A981D-7BB2-42E8-BA80-595E80AB487D}</Project>
+      <Name>JPB.RemoteAdmin.Client.Native</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JPB.RemoteAdmin.Common\JPB.RemoteAdmin.Common.csproj">
+      <Project>{5208AACF-3E4E-468C-83D9-B30C92624A18}</Project>
+      <Name>JPB.RemoteAdmin.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mircrosoft.Eventlogger\Mircrosoft.Windows.Eventlogger.csproj">
+      <Project>{97c64e9b-067a-4c27-96db-ccec0241a9e3}</Project>
+      <Name>Mircrosoft.Windows.Eventlogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JPB.WPFBase\JPB.WPFBase.csproj">
+      <Project>{5070CE1A-C5F1-4B6E-BDEA-C453224B8552}</Project>
+      <Name>JPB.WPFBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\GitHub\JPB.Communication\trunk\JPB.Communication\JPB.Communication.PCLIntigration\JPB.Communication.PCLIntigration.csproj">
+      <Project>{d7f935df-52a5-4372-90a0-fed78d1d4bd7}</Project>
+      <Name>JPB.Communication.PCLIntigration</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\GitHub\JPB.Communication\trunk\JPB.Communication\JPB.Communication.WinRT\JPB.Communication.WinRT.csproj">
+      <Project>{817b84cd-d302-45b9-91c4-31bf9ebd1c11}</Project>
+      <Name>JPB.Communication.WinRT</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\KeyExplore\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

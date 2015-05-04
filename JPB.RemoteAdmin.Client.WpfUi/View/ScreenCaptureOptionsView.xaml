@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="JPB.RemoteAdmin.Client.WpfUi.View.ScreenCaptureOptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:mainWindow="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.ViewModel.MainWindow"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance mainWindow:ScreenCaptureOptionsViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <DataGrid 
+                    SelectionMode="Single"
+                    CanUserAddRows="False"
+                    ItemsSource="{Binding Options}"
+                    AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Name}"/>
+                <DataGridCheckBoxColumn Binding="{Binding Enabled}"/>
+                <DataGridTemplateColumn Width="300" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentControl d:DataContext="{d:DesignInstance mainWindow:MessageBoxContractViewModel}">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding LookupValues, Converter={StaticResource IsAnyToBooleanConverter}}" Value="true">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <ComboBox ItemsSource="{Binding LookupValues, UpdateSourceTrigger=PropertyChanged}" 
+                                                                  DisplayMemberPath="Name"
+                                                                  SelectedValuePath="Value"
+                                                                  SelectedValue="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding LookupValues, Converter={StaticResource IsAnyToBooleanConverter}}" Value="false">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <DockPanel>
+                                                            <Label Content="{Binding Value}" />
+                                                            <Slider Maximum="100" Minimum="1" Value="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
+                                                        </DockPanel>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

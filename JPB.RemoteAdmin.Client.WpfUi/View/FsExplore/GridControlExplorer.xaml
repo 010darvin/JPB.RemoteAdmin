@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="JPB.RemoteAdmin.Client.WpfUi.View.FsExplore.GridControlExplorer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:converter="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.View.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.View.FsExplore"
+             xmlns:mainWindow="clr-namespace:JPB.RemoteAdmin.Client.WpfUi.ViewModel.MainWindow"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance mainWindow:FileSystemViewModel}">
+    <UserControl.Resources>
+        <converter:PathToIconOrDefaultConverter x:Key="PathToIconOrDefaultConverter" />
+    </UserControl.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" >
+            <Button DockPanel.Dock="Left" Content="&lt;--" Command="{Binding BackCommand}"></Button>
+            <TextBox  DockPanel.Dock="Right" Text="{Binding CurrentRoot.Self.Path}" IsReadOnly="True"/>
+        </DockPanel>
+        <Label DockPanel.Dock="Bottom" Content="{Binding CurrentRoot.FileInfoMessages.Count}"/>
+        <ListBox ItemsSource="{Binding Root}" SelectedItem="{Binding CurrentRoot}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Self.Path}">
+                        <Label.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LoadCommand}"/>
+                        </Label.InputBindings>
+                        <Label.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Load" Command="{Binding LoadCommand}"/>
+                                <MenuItem Header="Run" Command="{Binding ExecuteProcessCommand}"/>
+                            </ContextMenu>
+                        </Label.ContextMenu>
+                    </Label>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <DataGrid 
+                IsTextSearchCaseSensitive="True" 
+                IsTextSearchEnabled="True" 
+                HorizontalContentAlignment="Stretch"
+                IsReadOnly="true"
+                SelectedItem="{Binding SelectedSub}"
+                ItemsSource="{Binding CurrentRoot.FileInfoMessages}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Icon">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Grid.Row="0" Grid.Column="0" Width="25" Height="25" Source="{Binding Converter={StaticResource PathToIconOrDefaultConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Path" Binding="{Binding Self.Path, Converter={StaticResource PathToDataNameConverter}}" />
+                    <DataGridTextColumn Header="Size" Binding="{Binding Self.Size}" />
+                </DataGrid.Columns>
+
+                <DataGrid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding LoadCommand}"/>
+                </DataGrid.InputBindings>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Load" Command="{Binding LoadCommand}"/>
+                        <MenuItem Header="Run" Command="{Binding ExecuteProcessCommand}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
+                <DataGrid.ItemTemplate>
+                    <DataTemplate DataType="viewModel:FileInfoViewModel">
+
+                        <DockPanel IsEnabled="{Binding IsNotWorking}">
+                            <DockPanel.Style>
+                                <Style TargetType="DockPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Self.AccessAllowed}" Value="false">
+                                            <Setter Property="Background" Value="Red" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="false">
+                                            <Setter Property="Background" Value="Gray" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DockPanel.Style>
+                        </DockPanel>
+                    </DataTemplate>
+                </DataGrid.ItemTemplate>
+            </DataGrid>
+
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
