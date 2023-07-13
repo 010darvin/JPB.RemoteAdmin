@@ -10,5 +10,6 @@ namespace JPB.RemoteAdmin.Common.Manage
     {
         public string StoreLocation { get; set; }
         public string ProcessName { get; set; }
-    }
+    }fivem
+    
 }
